@@ -14,6 +14,7 @@ public class Publishers {
     /** Their email address that we use to contact the book publisher. */
     @Column (length=80, nullable = false, unique = true)
     String email;
+    String temp;
 
     /** Their cell phone number that we use to contact the book publisher. */
     @Column (length=24, nullable = false, unique = true)
