@@ -3,6 +3,20 @@ package csulb.cecs323.model;
 import javax.persistence.*;
 
 @Entity
+@NamedNativeQuery(
+        name="ReturnBookISBN",
+        query = "SELECT * " +
+                "FROM   BOOKS " +
+                "WHERE  ISBN = ? ",
+        resultClass = Books.class
+)
+@NamedNativeQuery(
+        name="ReturnBookTitle",
+        query = "SELECT * " +
+                "FROM   BOOKS " +
+                "WHERE  TITLE = ? ",
+        resultClass = Books.class
+)
 public class Books {
     @Id
     @Column(nullable = false, length = 17)
@@ -14,13 +28,15 @@ public class Books {
     @Column(nullable = false)
     private Integer year_published;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "publisher_name", referencedColumnName ="name", nullable = false)
-    private Publishers publishers;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "AUTHORING_ENTITY_NAME", referencedColumnName ="email", nullable = false)
+    @JoinColumn(name = "AUTHORING_ENTITY_NAME", referencedColumnName ="EMAIL", nullable = false)
     private authoring_entities authoring_entities;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PUBLISHER_NAME", referencedColumnName ="NAME", nullable = false)
+    private Publishers publishers;
+
 
     /** Getter and Setter methods for the attributes **/
     public void setISBN(String ISBN) {
@@ -67,12 +83,12 @@ public class Books {
     public Books(){}
 
     /** Constructor that accepts all the attributes **/
-    public Books(String ISBN, String title, Integer year_published, Publishers publishers, authoring_entities authoring_entities) {
+    public Books(String ISBN, String title, Integer year_published,authoring_entities authoring_entities , Publishers publishers) {
         this.ISBN = ISBN;
         this.title = title;
         this.year_published = year_published;
-        this.publishers = publishers;
         this.authoring_entities = authoring_entities;
+        this.publishers = publishers;
     }
 
     @Override
@@ -81,8 +97,8 @@ public class Books {
                 "ISBN='" + ISBN + '\'' +
                 ", title='" + title + '\'' +
                 ", year_published=" + year_published +
-                ", publishers=" + publishers +
                 ", authoring_entities=" + authoring_entities +
+                ", publishers=" + publishers +
                 '}';
     }
 }

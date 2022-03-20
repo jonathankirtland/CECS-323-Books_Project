@@ -10,7 +10,27 @@ import javax.persistence.NamedNativeQuery;
         name="ReturnPublisher",
         query = "SELECT * " +
                 "FROM   PUBLISHERS " +
-                "WHERE  NAME = ? ",
+                "WHERE  name = ? ",
+        resultClass = Publishers.class
+)
+@NamedNativeQuery(
+        name="ReturnPublisherEmail",
+        query = "SELECT * " +
+                "FROM   PUBLISHERS " +
+                "WHERE  email = ? ",
+        resultClass = Publishers.class
+)
+@NamedNativeQuery(
+        name="ReturnPublisherPhone",
+        query = "SELECT * " +
+                "FROM   PUBLISHERS " +
+                "WHERE  phone = ? ",
+        resultClass = Publishers.class
+)
+@NamedNativeQuery(
+        name="ReturnPublishersName",
+        query = "SELECT NAME " +
+                "FROM   PUBLISHERS ",
         resultClass = Publishers.class
 )
 public class Publishers {
